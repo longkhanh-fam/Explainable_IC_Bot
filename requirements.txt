@@ -5,3 +5,4 @@ tensorflow_datasets
 einops
 streamlit
 Pillow
+pickle
