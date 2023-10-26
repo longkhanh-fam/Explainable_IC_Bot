@@ -33,13 +33,21 @@ def simple_gen(self, image, temperature=1):
 if __name__ == "__main__":
     st.title("Web APp")
 
-    #train_ds = load_dataset('train_cache')
+    train_raw, test_raw = flickr8k()
+    tokenizer = tf.keras.layers.TextVectorization(
+        max_tokens=vocabulary_size,
+        standardize=standardize,
+        ragged=True)
+    
+    tokenizer.adapt(train_raw.map(lambda fp,txt: txt).unbatch().batch(1024))
 
-    from_disk = pickle.load(open("./tv_layer.pkl", "rb"))
-    tokenizer = tf.keras.layers.TextVectorization.from_config(from_disk['config'])
-    # You have to call `adapt` with some dummy data (BUG in Keras)
-    tokenizer.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
-    tokenizer.set_weights(from_disk['weights'])
+
+  
+    # from_disk = pickle.load(open("./tv_layer.pkl", "rb"))
+    # tokenizer = tf.keras.layers.TextVectorization.from_config(from_disk['config'])
+    # # You have to call `adapt` with some dummy data (BUG in Keras)
+    # tokenizer.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
+    # tokenizer.set_weights(from_disk['weights'])
 
     index_to_word = tf.keras.layers.StringLookup(
         mask_token="",
