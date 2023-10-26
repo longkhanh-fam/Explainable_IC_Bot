@@ -1,0 +1,7 @@
+tensorflow
+estimator
+keras
+tensorflow_datasets
+einops
+streamlit
+Pillow
