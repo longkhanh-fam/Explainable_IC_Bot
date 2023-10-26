@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     #train_ds = load_dataset('train_cache')
 
-    from_disk = pickle.load(open("tv_layer.pkl", "rb"))
+    from_disk = pickle.load(open("./tv_layer.pkl", "rb"))
     tokenizer = tf.keras.layers.TextVectorization.from_config(from_disk['config'])
     # You have to call `adapt` with some dummy data (BUG in Keras)
     tokenizer.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
