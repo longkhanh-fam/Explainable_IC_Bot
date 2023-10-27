@@ -4,6 +4,8 @@ from model import *
 import tempfile
 import os
 import pickle
+import io
+import matplotlib.pyplot as plt
 
 @Captioner.add_method
 def simple_gen(self, image, temperature=1):
@@ -26,7 +28,47 @@ def simple_gen(self, image, temperature=1):
   result = tf.strings.reduce_join(words, axis=-1, separator=' ')
   return result.numpy().decode()
 
+@Captioner.add_method
+def run_and_show_attention(self, image, temperature=0.0):
+  result_txt = self.simple_gen(image, temperature)
+  str_tokens = result_txt.split()
+  str_tokens.append('[END]')
 
+  attention_maps = [layer.last_attention_scores for layer in self.decoder_layers]
+  attention_maps = tf.concat(attention_maps, axis=0)
+  attention_maps = einops.reduce(
+      attention_maps,
+      'batch heads sequence (height width) -> sequence height width',
+      height=7, width=7,
+      reduction='mean')
+  
+  plot_attention_maps(image/255, str_tokens, attention_maps)
+  t = plt.suptitle(result_txt)
+  t.set_y(1.05)
+
+def plot_attention_maps(image, str_tokens, attention_map):
+    fig = plt.figure(figsize=(16, 9))
+
+    len_result = len(str_tokens)
+    
+    titles = []
+    for i in range(len_result):
+      map = attention_map[i]
+      grid_size = max(int(np.ceil(len_result/2)), 2)
+      ax = fig.add_subplot(3, grid_size, i+1)
+      titles.append(ax.set_title(str_tokens[i]))
+      img = ax.imshow(image)
+      ax.imshow(map, cmap='gray', alpha=0.6, extent=img.get_extent(),
+                clim=[0.0, np.max(map)])
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    plt.close(fig)
+    buf.seek(0)
+
+    # Display the image in Streamlit
+    st.image(buf, use_column_width=True)
+
+    plt.tight_layout()
 
 
     
@@ -102,5 +144,6 @@ if __name__ == "__main__":
 
     if st.button('Generate captions!'):
         #image = load_image(img_upload)
+        model.run_and_show_attention(image, temperature=0.0)
         result = model.simple_gen(image, temperature=0.0)
         st.write(result)
