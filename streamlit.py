@@ -84,12 +84,7 @@ if __name__ == "__main__":
     tokenizer.adapt(train_raw.map(lambda fp,txt: txt).unbatch().batch(1024))
 
 
-  
-    # from_disk = pickle.load(open("./tv_layer.pkl", "rb"))
-    # tokenizer = tf.keras.layers.TextVectorization.from_config(from_disk['config'])
-    # # You have to call `adapt` with some dummy data (BUG in Keras)
-    # tokenizer.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
-    # tokenizer.set_weights(from_disk['weights'])
+
 
     index_to_word = tf.keras.layers.StringLookup(
         mask_token="",
@@ -112,16 +107,6 @@ if __name__ == "__main__":
 
     img_upload = st.file_uploader(label='Upload Image', type=['png', 'jpg'])
     
-
-
-    #img_pt = "imgs/banmuonhenho-783.jpg" #if img_upload is None else img_upload
-
-
-
-
-
-
-
 
 
 
