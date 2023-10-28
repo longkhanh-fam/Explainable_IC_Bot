@@ -4,4 +4,4 @@
 
 #Web Demo: [link](https://eicbot.streamlit.app/)
 
-#Example: [](imgs/test.png)
+#Example: []([imgs/test.png](https://github.com/longkhanh-fam/Explainable_IC_Bot/blob/main/imgs/test.png)https://github.com/longkhanh-fam/Explainable_IC_Bot/blob/main/imgs/test.png)
