@@ -109,6 +109,7 @@ if __name__ == "__main__":
 
     if img_upload is not None:
         # Create a temporary directory to save the uploaded image
+        st.image(img_upload,  use_column_width=True)
         temp_dir = tempfile.TemporaryDirectory()
         temp_image_path = os.path.join(temp_dir.name, img_upload.name)
 
