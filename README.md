@@ -4,8 +4,8 @@ This implementation of this project is based on the paper [Show, Attend and Tell
 
 Web Demo: [link](https://eicbot.streamlit.app/)
 
-Example: ![e](https://github.com/longkhanh-fam/Explainable_IC_Bot/blob/main/imgs/test.png)
+ ![e](https://github.com/longkhanh-fam/Explainable_IC_Bot/blob/main/imgs/test.png)
 
-Further developments:
+# Further developments:
   - Because the model is trained on just a half of Flickr8k dataset,it is still a bit dumb. So it need more training.
   - The presentation of the attention map is a bit hard to look at.
