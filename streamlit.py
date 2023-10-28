@@ -61,15 +61,12 @@ def plot_attention_maps(image, str_tokens, attention_map):
       ax.imshow(map, cmap='gray', alpha=0.6, extent=img.get_extent(),
                 clim=[0.0, np.max(map)])
     buf = io.BytesIO()
-    plt.savefig(buf, format='png')
+    plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0)
     plt.close(fig)
     buf.seek(0)
 
-    # Display the image in Streamlit
-    st.image(buf, use_column_width=True)
-
-    plt.tight_layout()
-
+    # Display the image in Streamlit with a black background and increased size
+    st.image(buf, use_column_width=True, output_format='PNG', channels='RGB')
 
     
 if __name__ == "__main__":
