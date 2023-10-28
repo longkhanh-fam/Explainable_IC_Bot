@@ -73,7 +73,7 @@ def plot_attention_maps(image, str_tokens, attention_map):
 
     
 if __name__ == "__main__":
-    st.title("Web APp")
+    st.title("Explainable Image Captioning Bot")
 
     train_raw, test_raw = flickr8k()
     tokenizer = tf.keras.layers.TextVectorization(
