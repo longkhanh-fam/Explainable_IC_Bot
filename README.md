@@ -4,4 +4,4 @@ This implementation of this project is based on the paper [Show, Attend and Tell
 
 Web Demo: [link](https://eicbot.streamlit.app/)
 
-Example: ![e](https://github.com/longkhanh-fam/Explainable_IC_Bot/blob/main/imgs/test.png)
+Example: ![e]()
